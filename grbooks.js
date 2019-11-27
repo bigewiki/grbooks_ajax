@@ -9,7 +9,6 @@ function ajaxfunction(command, sourceID, targetID, useJSON) {
           );
         } else {
           document.getElementById(targetID).innerHTML = this.responseText;
-          //document.getElementById(targetID).innerHTML = "Response was sent?";
         }
       }
     };
@@ -28,10 +27,21 @@ function ajaxfunction(command, sourceID, targetID, useJSON) {
 
 const yearparse = jsonString => {
   var myArr = JSON.parse(jsonString);
-  var jsonMsg = "Json List of Titles <br />";
-  for (var i = 0, len = myArr.length; i < len; i++) {
-    jsonMsg = jsonMsg + myArr[i].title + "," + myArr[i].year + "<br />";
-  }
+  var jsonMsg = "<table><caption>Json List of Titles</caption><tbody>";
+  myArr.map(item => {
+    jsonMsg += `
+      <tr>
+        <td>${item.title}</td>
+        <td>${item.year}</td>
+        <td>${item.publisher}</td>
+        <td>${item.isbn13}</td>
+      </tr>
+    `;
+  });
+  // for (var i = 0, len = myArr.length; i < len; i++) {
+  //   jsonMsg += myArr[i].title + "," + myArr[i].year + "<br />";
+  // }
+  jsonMsg += "</tbody></table>";
   return jsonMsg;
 };
 
