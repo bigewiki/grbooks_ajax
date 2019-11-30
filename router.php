@@ -5,7 +5,7 @@
     if( $_SERVER['HTTP_HOST'] == 'localhost'){
         $docRoot = '/edward/grbooks-ajax/';
     } else {
-        $docRoot = '/superuser/javascript/grbooks-ajax/';
+        $docRoot = '/superuser/grbooks-ajax/';
     }
 
     class Router{
