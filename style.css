@@ -331,3 +331,31 @@ input[type="reset"] {
   background-color: #d6d8d9;
   border-color: #7f8181;
 }
+
+.output-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 3px;
+}
+
+.output-table td,
+.output-table th {
+  border-style: inset;
+  border-width: 1px;
+  border-color: #353535;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.output-table caption {
+  border-radius: 0px;
+  background-color: #cbcbcb;
+  color: white;
+  text-shadow: none;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: black;
+  border: 1px solid black;
+}

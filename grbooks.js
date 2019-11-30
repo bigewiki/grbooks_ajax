@@ -1,5 +1,16 @@
-function ajaxfunction(command, sourceID, targetID, useJSON) {
-  return function() {
+const hideOutput = shown => {
+  document.getElementById("outputyear").style.display = "none";
+  document.getElementById("titleoutput").style.display = "none";
+  document.getElementById("yearout").style.display = "none";
+  document.getElementById("byauthorout").style.display = "none";
+  if (shown) {
+    document.getElementById(shown).style.display = "block";
+  }
+};
+
+const ajaxfunction = (command, sourceID, targetID, useJSON) => {
+  return () => {
+    hideOutput(targetID);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -23,13 +34,23 @@ function ajaxfunction(command, sourceID, targetID, useJSON) {
     );
     xmlhttp.send();
   };
-}
+};
 
 const yearparse = jsonString => {
   var myArr = JSON.parse(jsonString);
-  var jsonMsg = "<table><caption>Json List of Titles</caption><tbody>";
-  myArr.map(item => {
+  if (myArr.length > 0) {
+    var jsonMsg =
+      "<table class='output-table'><caption>Json List of Titles</caption><tbody>";
     jsonMsg += `
+  <tr>
+    <th>Title</th>
+    <th>Year</th>
+    <th>Publisher</th>
+    <th>ISBN</th>
+  </tr>
+`;
+    myArr.map(item => {
+      jsonMsg += `
       <tr>
         <td>${item.title}</td>
         <td>${item.year}</td>
@@ -37,15 +58,16 @@ const yearparse = jsonString => {
         <td>${item.isbn13}</td>
       </tr>
     `;
-  });
-  // for (var i = 0, len = myArr.length; i < len; i++) {
-  //   jsonMsg += myArr[i].title + "," + myArr[i].year + "<br />";
-  // }
-  jsonMsg += "</tbody></table>";
-  return jsonMsg;
+    });
+    jsonMsg += "</tbody></table>";
+    return jsonMsg;
+  } else {
+    return "No results found";
+  }
 };
 
 window.onload = setupEvents;
+
 function setupEvents() {
   document.getElementById("year").onkeyup = ajaxfunction(
     "byyear",
@@ -71,4 +93,5 @@ function setupEvents() {
     "byauthorout",
     "no"
   );
+  hideOutput();
 }
